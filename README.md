@@ -1,7 +1,19 @@
 <!-- LOGO -->
 <p align="center">
-    <img src="public/assets/logo/open-cmap-2.svg">
+    <img src="public/assets/logo/open-cmap-3.svg">
 </p>
+
+## About Open CMAP Tools
+
+Open CMAP Tools is design for Learner and Teacher for making Concept Mapping is also for assignment system. This web app develop for College Final Project. Tools build with Laravel and GoJS and based on web app, this tools also Open Source project, you can modify for task or research.
+
+## Security Vurnability
+
+If you discover a security vulnerability within Laravel or this project, please send an e-mail to Zaka M. Noor via [zakanoor@outlook.co.id](mailto:zakanoor@outlook.co.id). All security vulnerabilities will be promptly addressed.
+## Licensing
+
+This project set to [MIT license](LICENSE) as Open Source Project.
+
 
 ### 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
