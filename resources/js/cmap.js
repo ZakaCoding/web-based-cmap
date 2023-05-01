@@ -150,7 +150,7 @@ function init() {
       { from: 17, to: 18, text: "needed\nto see" },
       { from: 18, to: 20, text: "between" }
     ];
-    myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+    // myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
   }
 
   // clicking the button inserts a new node to the right of the selected node,
