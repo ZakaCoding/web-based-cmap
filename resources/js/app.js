@@ -2,8 +2,6 @@ import './bootstrap';
 
 import 'flowbite';
 
-import { Tabs } from 'flowbite';
-
 import Alpine from 'alpinejs';
 
 /**
@@ -13,9 +11,9 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
+// import { Tabs } from 'flowbite';
 /*
 * tabElements: array of tab objects
 * options: optional
 */
-const tabs = new Tabs(tabElements);
-
+// const tabs = new Tabs(tabElements);
