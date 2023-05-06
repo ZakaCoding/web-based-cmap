@@ -2,6 +2,8 @@ import './bootstrap';
 
 import 'flowbite';
 
+import 'animate.css';
+
 import Alpine from 'alpinejs';
 
 /**
