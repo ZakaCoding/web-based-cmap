@@ -1,17 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex place-items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Project') }}
-            </h2>
+        <div class="flex place-items-center justify-between relative">
+            <div class="block">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Project') }}
+                </h2>
+                <div class="flex text-gray-400 mb-3">
+                    <h3>CMAP Key.&nbsp;</h3>
+                    <div id="cmap-key" class="font-bold"></div>
+                </div>
+            </div>
 
             <div class="flex content-end">
-                <button class="rounded-lg mr-4 p-2 px-4 text-center bg-purple-100 hover:bg-purple-200 hover:text-purple-800 text-purple-700 font-bold">Save</button>
+                <button id="save" class="rounded-lg mr-4 p-2 px-4 text-center bg-purple-100 hover:bg-purple-200 hover:text-purple-800 text-purple-700 font-bold">Save</button>
                 <button class="rounded-lg mr-4 p-2 px-4 text-center bg-white border-2 border-slate-400 text-slate-600 font-bold hover:bg-slate-400 hover:text-black">Export Map</button>
-                <button class="bg-violet-600 rounded-lg p-2 px-4 text-center flex text-white font-bold">
-                    {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2 stroke-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                    </svg> --}}
+                <button class="bg-violet-600 rounded-lg mr-4 p-2 px-4 text-center flex text-white font-bold">
                     <svg viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
                         <path d="M14.6666 1L5.49998 10.1667L1.33331 6" stroke="white" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>           
@@ -51,17 +54,20 @@
                         {{-- <h5 class="font-bold text-left mb-5 leading-tight text-lg">Build From</h5> --}}
                         <form action="#">
                             <div class="mb-3">
-                                <label for="super_concept" class="block mb-2 font-bold text-left mb-5 leading-tight text-lg text-gray-900 dark:text-white">Super Concept</label>
+                                <label for="super_concept" class="block mb-2 font-bold text-left mb-5 leading-tight text-lg text-gray-900 dark:text-white">
+                                    Super Concept
+                                </label>
                                 <input type="text" id="super_concept" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Super concept (optional)" required>
+                                <small class="text-gray-400 leading-6">The super concept is the most important concept in the map. There can only be one super concept per map. This is so your map content can focus on a single idea.</small>
                             </div>
 
-                            <h5 class="font-bold text-left mb-5 leading-tight text-lg">Sub Concept</h5>
+                            <h5 class="font-bold text-left mb-5 leading-tight text-lg">Concept</h5>
                             <div class="mb-2">
                                 <input type="text" id="concept" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Concept" required>
                             </div>
-                            <div class="mb-2">
+                            {{-- <div class="mb-2">
                                 <input type="text" id="link_pharase" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Link Pharase" required>
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                     <hr class="mb-3">
@@ -84,7 +90,6 @@
 
                             <p>
                                 <strong>The fast way</strong> <br> you can double click on canvas
-
                             </p>
                         </div>
                     </div>
@@ -113,11 +118,23 @@
         {{-- canvas --}}
         <div id="canvas" style="width: 100%; height: 100vh" class="static">
         </div>
+
+        {{-- toast --}}
+        <div id="toast-success" class="fixed bottom-10 right-10 z-10 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 animate__animated hidden" role="alert">
+            <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Check icon</span>
+            </div>
+            <div class="ml-3 text-sm font-normal">Concept has been saved</div>
+            <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
     </div>
 </x-app-layout>
 
 <script>
-
     // sidenav
     const btnSidenav = document.querySelector('#btn-sidenav')
     const sidenav = document.querySelector('#sidenav')
@@ -127,14 +144,4 @@
         sidenav.classList.toggle('hide')
         icons.classList.toggle('deactive')
     })
-
-    // tabs
-    // const tabElements = [
-    //     {
-    //         id: 'scratch',
-    //     },
-    //     {
-    //         id: 'filePDF',
-    //     },
-    // ];
 </script>
