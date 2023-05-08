@@ -12,6 +12,17 @@ html, body {
     height: 100%;
 }
 
+#assignment-title {
+    transition: .4s ease-in-out;
+}
+
+#assignment-title.show {
+    left: 42%;
+}
+#assignment-title.hide {
+    left: 5%;
+}
+
 /* Sidenav */
 #sidenav {
     transition: .4s ease-in-out;

@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/js/cmap.js', // Open CMAP
+                'resources/js/assignment.js', // Assignment cmap
                 'resources/js/pdf.js',
             ],
             refresh: true,
