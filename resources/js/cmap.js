@@ -201,6 +201,13 @@ function init() {
     // show log
     // console.log(modelData)
 
+    // check cmap model
+    if(myDiagram.model.nodeDataArray.length === 0)
+    {
+      alert('Concept Map Model cannot be empty, you must create concept map first then create assignment')
+      return 0
+    }
+
     // save data to database using laravel API
     save(modelData)
     myDiagram.isModified = false;
