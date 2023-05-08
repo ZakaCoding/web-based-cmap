@@ -185,6 +185,10 @@ function init() {
       }
   });
 
+  /**
+   * Save cmap to database
+   */
+
   // user data
   const user = JSON.parse(document.querySelector('#user').getAttribute("data-user"));  
   
@@ -192,22 +196,90 @@ function init() {
     var userid = user.id
     var modelData = JSON.parse(myDiagram.model.toJson())
     modelData.userID = userid
-    modelData.key = key
+    modelData.key = document.querySelector('#cmap-key').innerHTML
 
     // show log
-    console.log(modelData)
+    // console.log(modelData)
 
     // save data to database using laravel API
     save(modelData)
     myDiagram.isModified = false;
   });
 
-  // Load model from session
+  /**
+   * Create assignment process
+   */
+  const formAssignment = document.querySelector('#assignment');
+  const assignBtn = document.querySelector('#assignment-button');
+  assignBtn.addEventListener('click', (event) => {
+
+    // input validation check
+    if(formAssignment.checkValidity())
+    {
+
+      // check cmap model
+      if(myDiagram.model.nodeDataArray.length === 0)
+      {
+        alert('Concept Map Model cannot be empty, you must create concept map first then create assignment')
+        return 0
+      }
+
+      var modelData = JSON.parse(myDiagram.model.toJson())
+      modelData.userID = user.id
+      modelData.key = document.querySelector('#cmap-key').innerHTML
+
+      // save
+      save(modelData)
+
+      // required data for assignment
+      const focusQuestion = document.querySelector('#title').value
+      const dueDate = document.querySelector('#due-date').value
+      const timer = document.querySelector('#timer').value
+      const focusMethod = document.querySelectorAll('input[name="method"]')
+      var method = ""
+
+      // get method value
+      for(let i = 0; i < focusMethod.length; i++)
+      {
+        if(focusMethod[i].checked)
+        {
+          method = focusMethod[i].value;
+          break;
+        }
+      }
+      
+      /** 
+       * Bind data to json so Laravel API can Read
+       */
+
+      modelData.data = {
+        "focusquestion" : focusQuestion,
+        "duedate" : dueDate,
+        "timer" : timer,
+        "method" : method
+      }
+
+      // show log
+      // console.log(modelData)
+
+      // create assignment
+      createAssignment(modelData)
+      
+    } else {
+      formAssignment.reportValidity();
+    }
+  });
+
+
+  /**
+   * Load Model and view from project
+   */
   if(sessionStorage.getItem('model') !== null)
   {
     let modelData = sessionStorage.getItem('model')
     myDiagram.model = go.Model.fromJson(modelData)
 
+    // from session
     document.querySelector('#cmap-key').innerHTML = JSON.parse(modelData).key;
   }
 
@@ -324,9 +396,52 @@ function save(jsonData)
 
       // show toast
       const toast = document.querySelector('#toast-success')
-
+      // Add animation
       toast.classList.toggle('hidden')
       toast.classList.add('animate__fadeInUp')
+  })
+  .catch(error => {
+      console.error(error)
+  });
+}
+
+function createAssignment(jsonData)
+{
+  fetch('/api/create-assignment', {
+    method : 'POST',
+    headers : {
+    'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(jsonData)
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Handle response from laravel api
+      // console.log('success with :' + JSON.stringify(data))
+
+      const assignmentEl = document.querySelector('#assignment')
+
+      // create some animation on button
+      const defaultState = document.querySelector('#default-state')
+      const processingState = document.querySelector('#processing-state')
+
+      processingState.classList.toggle('hidden')
+      defaultState.classList.toggle('hidden')
+
+      setTimeout((event) => {
+        // add cmap key to success state
+        document.querySelector('#key').innerHTML = data['data']
+
+        // change state to success
+        assignmentEl.classList.toggle('hidden');
+
+        // show success state
+        const successState = document.querySelector('#success-state')
+        successState.classList.toggle('hidden')
+
+        // show log
+        console.log(data)
+      }, 2000);
   })
   .catch(error => {
       console.error(error)

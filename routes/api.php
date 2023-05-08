@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AssignmentCheckController;
+use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AssignmentLoadController;
 use App\Http\Controllers\CmapDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +25,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post(
     '/submit-cmap',
     CmapDataController::class
+);
+
+Route::post(
+    '/create-assignment',
+    AssignmentController::class
+)->name('create.assignment');
+
+Route::get(
+    '/load-cmap/{key}',
+    AssignmentLoadController::class
+);
+
+Route::get(
+    '/assignment-check/{cmapID}',
+    AssignmentCheckController::class
 );
