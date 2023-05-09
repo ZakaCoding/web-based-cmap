@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cmap;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Str;
 
@@ -30,7 +31,8 @@ class CmapDataController extends Controller
             {
                 // update model
                 Cmap::where('key', $data['key'])->update([
-                    'model' => json_encode($model)
+                    'model' => json_encode($model),
+                    'updated_at' => Carbon::now()
                 ]);
             } else {
                 // Upload to database
