@@ -261,39 +261,48 @@ function init() {
       // save
       save(modelData)
 
-      // required data for assignment
-      const focusQuestion = document.querySelector('#title').value
-      const dueDate = document.querySelector('#due-date').value
-      const timer = document.querySelector('#timer').value
-      const focusMethod = document.querySelectorAll('input[name="method"]')
-      var method = ""
-
-      // get method value
-      for(let i = 0; i < focusMethod.length; i++)
-      {
-        if(focusMethod[i].checked)
-        {
-          method = focusMethod[i].value;
-          break;
-        }
-      }
-      
-      /** 
-       * Bind data to json so Laravel API can Read
+      /**
+       * use timeout for run save() first then create assingment
+       * if run in locally without timeout is good, but in real scenario like live server
+       * you must set timeout because connections speed is realy important for some case. So be patient
+       * [zakacoding@2023] - u find this bug :)
        */
+      setTimeout(() => {
+        // required data for assignment
+        const focusQuestion = document.querySelector('#title').value
+        const dueDate = document.querySelector('#due-date').value
+        const timer = document.querySelector('#timer').value
+        const focusMethod = document.querySelectorAll('input[name="method"]')
+        var method = ""
+  
+        // get method value
+        for(let i = 0; i < focusMethod.length; i++)
+        {
+          if(focusMethod[i].checked)
+          {
+            method = focusMethod[i].value;
+            break;
+          }
+        }
+        
+        /** 
+         * Bind data to json so Laravel API can Read
+         */
+  
+        modelData.data = {
+          "focusquestion" : focusQuestion,
+          "duedate" : dueDate,
+          "timer" : timer,
+          "method" : method
+        }
+  
+        // show log
+        // console.log(modelData)
+  
+        // create assignment
+        createAssignment(modelData)
+      }, 2000);
 
-      modelData.data = {
-        "focusquestion" : focusQuestion,
-        "duedate" : dueDate,
-        "timer" : timer,
-        "method" : method
-      }
-
-      // show log
-      // console.log(modelData)
-
-      // create assignment
-      createAssignment(modelData)
       
     } else {
       formAssignment.reportValidity();
