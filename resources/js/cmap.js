@@ -119,16 +119,18 @@ function init() {
       new go.Binding("curviness"),
       $(go.Shape,  // the link shape
         { strokeWidth: 1.5 },
-        new go.Binding('stroke', 'progress', progress => progress ? "#52ce60" /* green */ : 'black'),
-        new go.Binding('strokeWidth', 'progress', progress => progress ? 2.5 : 1.5)),
+        new go.Binding('stroke', 'progress', progress => progress ? "#52ce60" /* green */ : '#00349A'),
+        new go.Binding('strokeWidth', 'progress', progress => progress ? 2.5 : 1.5),
+        ),
       $(go.Shape,  // the arrowhead
         { toArrow: "standard", stroke: null },
-        new go.Binding('fill', 'progress', progress => progress ? "#52ce60" /* green */ : 'black')),
+        new go.Binding('fill', 'progress', progress => progress ? "#52ce60" /* green */ : '#00349A')),
       $(go.Panel, "Auto",
         $(go.Shape,  // the label background, which becomes transparent around the edges
           {
             fill: $(go.Brush, "Radial",
-              { 0: "rgb(245, 245, 245)", 0.7: "rgb(245, 245, 245)", 1: "rgba(245, 245, 245, 0)" }),
+                    { 0: "rgb(245, 245, 245)", 0.7: "rgb(245, 245, 245)", 1: "rgba(245, 245, 245, 0)" }
+                  ),
             stroke: null
           }),
         $(go.TextBlock, "Link",  // the label text
@@ -136,7 +138,7 @@ function init() {
             textAlign: "center",
             font: "9pt helvetica, arial, sans-serif",
             margin: 4,
-            editable: true  // enable in-place editing
+            editable: true,  // enable in-place editing
           },
           // editing the text automatically updates the model data
           new go.Binding("text").makeTwoWay())
@@ -202,9 +204,30 @@ function init() {
     // console.log(modelData)
 
     // check cmap model
-    if(myDiagram.model.nodeDataArray.length === 0)
+    if(myDiagram.model.nodeDataArray.length === 0 || myDiagram.model.linkDataArray.length === 0)
     {
-      alert('Concept Map Model cannot be empty, you must create concept map first then create assignment')
+      alert('Concept Map Model cannot be empty at least have 2 node and connected with link.')
+      return 0
+    }
+
+    // save data to database using laravel API
+    save(modelData)
+    myDiagram.isModified = false;
+  });
+
+  document.querySelector('#update').addEventListener('click', (event) => {
+    var userid = user.id
+    var modelData = JSON.parse(myDiagram.model.toJson())
+    modelData.userID = userid
+    modelData.key = document.querySelector('#cmap-key').innerHTML
+
+    // show log
+    // console.log(modelData)
+
+    // check cmap model
+    if(myDiagram.model.nodeDataArray.length === 0 || myDiagram.model.linkDataArray.length === 0)
+    {
+      alert('Concept Map Model cannot be empty at least have 2 node and connected with link.')
       return 0
     }
 
@@ -288,6 +311,65 @@ function init() {
 
     // from session
     document.querySelector('#cmap-key').innerHTML = JSON.parse(modelData).key;
+  }
+
+  // get key from url if exists
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  var keyUrl = urlParams.get('key')
+
+  // check url
+  if(keyUrl !== null)
+  {
+    load(keyUrl)
+  }
+
+  // Load function
+  function load(key)
+  {
+      // call laravel API to load data model
+      let url = '/api/load-cmap/' + key
+      fetch(url, {
+          method : 'GET',
+          headers : {
+              'Content-Type' : 'application/json'
+          },
+      })
+      .then(response => response.json())
+      .then(response => {
+          // Handle response from laravel api
+          const model = response.data.model
+
+          // load model to canvas
+          myDiagram.model = new go.GraphLinksModel(model.nodeDataArray, model.linkDataArray)
+
+          // change default cmap key blade
+          const mapKey = document.querySelector('#cmap-key')
+          mapKey.innerHTML = response.data.key
+
+          // change button 
+          const saveBtn = document.querySelector('#save')
+          const updateBtn = document.querySelector('#update')
+
+          saveBtn.classList.toggle('hidden');
+          updateBtn.classList.toggle('hidden');
+
+          // show log
+          if(response.data.assignmentStatus !== null)
+          {
+            // hidden button create assignment
+            const createAssignmentBtn = document.querySelector('#create-assignment')
+            const updateAssignmentBtn = document.querySelector('#update-assignment')
+            
+            createAssignmentBtn.classList.toggle('hidden')
+            updateAssignmentBtn.classList.toggle('hidden')
+          }
+      })
+      .catch(error => {
+          // console.error(error)
+
+          return alert('Cannot load Concept Map model, make sure URL keycode is valid')
+      });
   }
 
   /**
@@ -445,6 +527,13 @@ function createAssignment(jsonData)
         // show success state
         const successState = document.querySelector('#success-state')
         successState.classList.toggle('hidden')
+
+        // hidden create button
+        const createBtn = document.querySelector('#create-assignment')
+        const updateBtn = document.querySelector('#update-assignment')
+
+        createBtn.classList.toggle('hidden')
+        updateBtn.classList.toggle('hidden')
 
         // show log
         console.log(data)
