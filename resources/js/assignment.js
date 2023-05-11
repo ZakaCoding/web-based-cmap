@@ -238,7 +238,7 @@ function init() {
     function load(key)
     {
         // call laravel API to load data model
-        let url = '/api/load-cmap/' + key
+        let url = '/api/load-assignment/' + key
         fetch(url, {
             method : 'GET',
             headers : {
