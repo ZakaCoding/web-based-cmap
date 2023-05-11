@@ -13,12 +13,19 @@
 
             <div class="flex content-end">
                 <button id="save" class="rounded-lg mr-4 p-2 px-4 text-center bg-purple-100 hover:bg-purple-200 hover:text-purple-800 text-purple-700 font-bold">Save</button>
+                <button id="update" class="rounded-lg mr-4 p-2 px-4 text-center bg-green-200 hover:bg-green-400 hover:text-green-800 text-green-700 font-bold hidden">Update</button>
                 <button class="rounded-lg mr-4 p-2 px-4 text-center bg-white border-2 border-slate-400 text-slate-600 font-bold hover:bg-slate-400 hover:text-black">Export Map</button>
-                <button class="bg-violet-600 rounded-lg mr-4 p-2 px-4 text-center flex text-white font-bold" data-modal-target="assignment-modal" data-modal-toggle="assignment-modal">
+                <button id="create-assignment" class="bg-violet-600 rounded-lg mr-4 p-2 px-4 text-center flex text-white font-bold" data-modal-target="assignment-modal" data-modal-toggle="assignment-modal">
                     <svg viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
                         <path d="M14.6666 1L5.49998 10.1667L1.33331 6" stroke="white" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>           
                     Create Assignment
+                </button>
+                <button id="update-assignment" class="bg-green-100 rounded-lg mr-4 p-2 px-4 text-center flex text-green-600 font-bold hidden">
+                    <svg viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                        <path d="M14.6666 1L5.49998 10.1667L1.33331 6" stroke="green" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>           
+                    Assignment Was Created
                 </button>
             </div>
         </div>
