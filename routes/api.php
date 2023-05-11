@@ -4,6 +4,8 @@ use App\Http\Controllers\AssignmentCheckController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AssignmentLoadController;
 use App\Http\Controllers\CmapDataController;
+use App\Http\Controllers\CmapLoadController;
+use App\Http\Controllers\DashboardDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,8 +35,18 @@ Route::post(
 )->name('create.assignment');
 
 Route::get(
-    '/load-cmap/{key}',
+    '/load-assignment/{key}',
     AssignmentLoadController::class
+);
+
+Route::get(
+    '/load-data-assignment/{key}',
+    [DashboardDataController::class, 'assignment']
+);
+
+Route::get(
+    '/load-cmap/{key}',
+    CmapLoadController::class
 );
 
 Route::get(
