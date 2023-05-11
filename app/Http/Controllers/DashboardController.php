@@ -15,14 +15,57 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $conceptData = Cmap::select([
-            'id',
-            'key',
-            'model',
-            'created_at',
-            'updated_at',
-            DB::raw("(CASE WHEN (SELECT assignments.cmap_id FROM assignments WHERE assignments.cmap_id = cmaps.id) THEN 'Assign to Test' ELSE 'Skeleton Maps' END) AS status")
-        ])->get();
+        /**
+         * For mysql setting database
+         * 
+         */
+        // $conceptData = Cmap::select([
+        //     'id',
+        //     'key',
+        //     'model',
+        //     'created_at',
+        //     'updated_at',
+        //     DB::raw("(CASE WHEN (SELECT assignments.cmap_id FROM assignments WHERE assignments.cmap_id = cmaps.id) THEN 'Assign to Test' ELSE 'Skeleton Maps' END) AS status")
+        // ])->get();
+
+        /**
+         * if you using postgres as database 
+         * use this code, this code has been fixed by chat.open.ai :)
+         */
+        // $conceptData = Cmap::select([
+        //     'id',
+        //     'key',
+        //     'model',
+        //     'created_at',
+        //     'updated_at',
+        //     DB::raw("(CASE WHEN EXISTS (SELECT assignments.cmap_id FROM assignments WHERE assignments.cmap_id = cmaps.id) THEN 'Assign to Test' ELSE 'Skeleton Maps' END) AS status")
+        // ])->get();
+
+        // handel error cause RDBMS between MySQL and Postgresql
+        if(env('DB_CONNECTION') === 'pgsql')
+        {
+            $conceptData = Cmap::select([
+                'id',
+                'key',
+                'model',
+                'created_at',
+                'updated_at',
+                DB::raw("(CASE WHEN EXISTS (SELECT assignments.cmap_id FROM assignments WHERE assignments.cmap_id = cmaps.id) THEN 'Assign to Test' ELSE 'Skeleton Maps' END) AS status")
+            ])->get();
+        }
+
+        if(env('DB_CONNECTION') === 'mysql')
+        {
+            $conceptData = Cmap::select([
+                'id',
+                'key',
+                'model',
+                'created_at',
+                'updated_at',
+                DB::raw("(CASE WHEN (SELECT assignments.cmap_id FROM assignments WHERE assignments.cmap_id = cmaps.id) THEN 'Assign to Test' ELSE 'Skeleton Maps' END) AS status")
+            ])->get();
+        }
+
 
         /**
          * Get super concept as title
