@@ -188,6 +188,38 @@ function init() {
   });
 
   /**
+   * record the time when a user creates a node or link in a GoJS diagram
+   */
+  // Initialize an empty log array
+  var log = [];
+  // add an event listener for when a node is added to the diagram
+  myDiagram.addDiagramListener("PartCreated", function(e) {
+    var node = e.subject; // the object that was added to the diagram
+    if (node instanceof go.Node) {
+      // record that a node was created by the user
+      console.log("User created a node with key: " + node.key);
+    }
+  });
+
+  // add event listener when user create link between node
+  myDiagram.addDiagramListener("LinkDrawn", function(e) {
+    var node = e.subject;
+    if(node instanceof go.Link) {
+      // record that a link was created by the user
+      console.log("User created a link from node: " + node.fromNode + " to node : " + node.toNode);
+    }
+  });
+
+  myDiagram.addDiagramListener("TextEdited", function(e) {
+    var tb = e.subject;
+    if (tb !== null) {
+      var node = tb.part;
+
+      console.log("User edited the text of a from node key : " + node.key + ' with : ' + tb.text);
+    }
+  });
+
+  /**
    * Save cmap to database
    */
 
@@ -333,7 +365,7 @@ function init() {
     load(keyUrl)
   }
 
-  // Load function
+  // Load concept map data
   function load(key)
   {
       // call laravel API to load data model
@@ -349,9 +381,6 @@ function init() {
           // Handle response from laravel api
           const model = response.data.model
 
-          // load model to canvas
-          myDiagram.model = new go.GraphLinksModel(model.nodeDataArray, model.linkDataArray)
-
           // change default cmap key blade
           const mapKey = document.querySelector('#cmap-key')
           mapKey.innerHTML = response.data.key
@@ -363,7 +392,6 @@ function init() {
           saveBtn.classList.toggle('hidden');
           updateBtn.classList.toggle('hidden');
 
-          // show log
           if(response.data.assignmentStatus !== null)
           {
             // hidden button create assignment
@@ -373,12 +401,33 @@ function init() {
             createAssignmentBtn.classList.toggle('hidden')
             updateAssignmentBtn.classList.toggle('hidden')
           }
+
+          // load model to canvas
+          myDiagram.model = new go.GraphLinksModel(model.nodeDataArray, model.linkDataArray)
+
+          let nodeData = model.nodeDataArray
+          let linkData = model.linkDataArray
+
+          // show log
+          console.log(nodeData.length)
+          console.log(linkData.length)
+
+          // Load node one by one
+          // replayLog(model)
+          console.log(model)
+  
       })
       .catch(error => {
           // console.error(error)
 
           return alert('Cannot load Concept Map model, make sure URL keycode is valid')
       });
+  } 
+
+  // Add a listener for the ModelChanged event
+  // Function to replay the log
+  function replayLog(log) {
+    
   }
 
   /**
