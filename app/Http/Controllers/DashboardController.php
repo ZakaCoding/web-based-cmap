@@ -90,4 +90,9 @@ class DashboardController extends Controller
 
         return view('dashboard', ['conceptData' => $conceptData]);
     }
+
+    public function releasePages()
+    {
+        return view('release-notes');
+    }
 }
