@@ -129,21 +129,84 @@
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
                                             </svg>
-                                            <a href="#" class="block px-4 py-2">Delete</a>
+                                            <div data-modal-target="modal-delete-{{$concept->id}}" data-modal-toggle="modal-delete-{{$concept->id}}" class="block cursor-pointer px-4 py-2">Delete</div>
                                           </li>
                                           <li class="flex items-center justify-content-center px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"></path>
                                             </svg>
-                                            <a href="{{ url('/concept-map/'.$concept->key) }}" class="block px-4 py-2">Share</a>
+                                            {{-- <a href="{{ url('/concept-map/'.$concept->key) }}" class="block px-4 py-2">Share</a> --}}
+                                            <div data-modal-target="modal-share-{{$concept->id}}" data-modal-toggle="modal-share-{{$concept->id}}" class="block cursor-pointer px-4 py-2">Share</div>
                                           </li>
                                         </ul>
-                                        {{-- <div class="">
-                                          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Sign out</a>
-                                        </div> --}}
                                     </div>
                                 </td>
                             </tr>
+
+                            {{-- modal dialog for delete concept --}}
+                            <div id="modal-delete-{{ $concept->id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="flex flex-col p-8 bg-white shadow-md hover:shodow-lg rounded-2xl">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="w-16 h-16 rounded-2xl p-3 border border-blue-100 text-blue-400 bg-blue-50" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <div class="flex flex-col ml-3">
+                                                <div class="font-medium leading-none">Delete Your Concept Map ?</div>
+                                                <p class="text-sm text-gray-600 leading-none mt-1">By deleting your concept you will lose your concept mapping data</p>
+                                            </div>
+                                        </div>
+                                        <button  class="flex-no-shrink bg-red-500 px-5 ml-4 py-2 text-sm shadow-sm hover:ring-offset-2 hover:ring-2 hover:ring-red-500 font-medium tracking-wider border-2 border-red-500 text-white rounded-full">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Modal dialog for share reverse concept --}}
+                            <div id="modal-share-{{$concept->id}}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative w-full max-w-md max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="modal-share-{{$concept->id}}">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                        <!-- Modal header -->
+                                        <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
+                                            <h3 class="text-base font-semibold text-gray-900 lg:text-xl dark:text-white">
+                                                Share this Concept Map
+                                            </h3>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="p-6">
+                                            <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Invite other to review your concept map</p>
+                                            <ul class="my-4 space-y-3">
+                                                <li>
+                                                    <a href="#" class="flex items-center cursor-pointer p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" data-name="Layer 1" viewBox="0 0 24 24" id="whatsapp-alt"><path fill="#00C35D" d="M22,6.55a12.61,12.61,0,0,0-.1-1.29,4.29,4.29,0,0,0-.37-1.08,3.66,3.66,0,0,0-.71-1,3.91,3.91,0,0,0-1-.71,4.28,4.28,0,0,0-1.08-.36A10.21,10.21,0,0,0,17.46,2H6.55a12.61,12.61,0,0,0-1.29.1,4.29,4.29,0,0,0-1.08.37,3.66,3.66,0,0,0-1,.71,3.91,3.91,0,0,0-.71,1,4.28,4.28,0,0,0-.36,1.08A10.21,10.21,0,0,0,2,6.54C2,6.73,2,7,2,7.08v9.84c0,.11,0,.35,0,.53a12.61,12.61,0,0,0,.1,1.29,4.29,4.29,0,0,0,.37,1.08,3.66,3.66,0,0,0,.71,1,3.91,3.91,0,0,0,1,.71,4.28,4.28,0,0,0,1.08.36A10.21,10.21,0,0,0,6.54,22H17.45a12.61,12.61,0,0,0,1.29-.1,4.29,4.29,0,0,0,1.08-.37,3.66,3.66,0,0,0,1-.71,3.91,3.91,0,0,0,.71-1,4.28,4.28,0,0,0,.36-1.08A10.21,10.21,0,0,0,22,17.46c0-.19,0-.43,0-.54V7.08C22,7,22,6.73,22,6.55ZM12.23,19h0A7.12,7.12,0,0,1,8.8,18.1L5,19.1l1-3.72a7.11,7.11,0,0,1-1-3.58A7.18,7.18,0,1,1,12.23,19Zm0-13.13A6,6,0,0,0,7.18,15l.14.23-.6,2.19L9,16.8l.22.13a6,6,0,0,0,3,.83h0a6,6,0,0,0,6-6,6,6,0,0,0-6-6Zm3.5,8.52a1.82,1.82,0,0,1-1.21.85,2.33,2.33,0,0,1-1.12-.07,8.9,8.9,0,0,1-1-.38,8,8,0,0,1-3.06-2.7,3.48,3.48,0,0,1-.73-1.85,2,2,0,0,1,.63-1.5.65.65,0,0,1,.48-.22H10c.11,0,.26,0,.4.31s.51,1.24.56,1.33a.34.34,0,0,1,0,.31,1.14,1.14,0,0,1-.18.3c-.09.11-.19.24-.27.32s-.18.18-.08.36a5.56,5.56,0,0,0,1,1.24,5,5,0,0,0,1.44.89c.18.09.29.08.39,0s.45-.52.57-.7.24-.15.4-.09,1.05.49,1.23.58.29.13.34.21A1.56,1.56,0,0,1,15.73,14.36Z"></path></svg>
+                                                        <span class="flex-1 ml-3 whitespace-nowrap">WhatsApp</span>
+                                                        <span class="inline-flex items-center justify-center px-2 py-0.5 ml-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">Popular</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <div class="flex items-center cursor-pointer p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white" onclick="copyLink('{{ url("/concept-map/$concept->key") }}', this)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5" viewBox="0 0 24 24" id="external-link-alt"><path fill="#0B8DFF" d="M18,10.82a1,1,0,0,0-1,1V19a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V8A1,1,0,0,1,5,7h7.18a1,1,0,0,0,0-2H5A3,3,0,0,0,2,8V19a3,3,0,0,0,3,3H16a3,3,0,0,0,3-3V11.82A1,1,0,0,0,18,10.82Zm3.92-8.2a1,1,0,0,0-.54-.54A1,1,0,0,0,21,2H15a1,1,0,0,0,0,2h3.59L8.29,14.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L20,5.41V9a1,1,0,0,0,2,0V3A1,1,0,0,0,21.92,2.62Z"></path></svg>
+                                                        <span class="flex-1 ml-3 whitespace-nowrap">Copy Link</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <div>
+                                                <a href="#" class="inline-flex items-center text-xs font-normal text-gray-500 hover:underline dark:text-gray-400">
+                                                    <svg aria-hidden="true" class="w-3 h-3 mr-2" aria-hidden="true" focusable="false" data-prefix="far" data-icon="question-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"></path></svg>
+                                                    Why do you need to share concept Map?</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -177,8 +240,9 @@
                                                     <p class="helper-text text-gray-400 font-light text-sm">share this keycode for learner take assignment</p>
                                                 </h3>
                                                 <div class="flex items-center justify-between">
-                                                    <a href="" id="keycode" class="font-bold text-lg hover:underline decoration-sky-500 decoration-4"></a>
-                                                    <button type="button" id="copy-keycode" class="p-1 px-6 rounded-lg bg-gray-200 text-gray-600 text-sm font-bold hover:bg-blue-600 hover:text-white" onclick="copyLink()">Copy</button>                                                </div>
+                                                    <a href="" id="keycode" class="font-bold text-blue-700 text-lg hover:underline decoration-sky-500 decoration-4"></a>
+                                                    <button type="button" id="copy-keycode" class="p-1 px-6 rounded-lg bg-gray-200 text-gray-600 text-sm font-bold hover:bg-blue-600 hover:text-white" onclick="copyLink('{{ url("/assignment?key=") }}', this)">Copy</button>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="grid w-full gap-6 md:grid-cols-2">
@@ -331,12 +395,20 @@
             });
         }
 
-        function copyLink()
+        function copyLink(uri, event)
         {
-            const key = document.querySelector('#keycode').innerText
-            var url = '{{ url("/assignment?key=") }}' + key
+            event.preventDefault;
 
+            const key = document.querySelector('#keycode').innerText
+            var url = uri + key
+
+            var element = event.getElementsByTagName('span')[0];
+
+            // coppy link
             navigator.clipboard.writeText(url);
+
+            // change text when success copy
+            element.innerText = 'Link Copied'
         }
     </script>
 </x-app-layout>

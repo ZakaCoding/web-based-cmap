@@ -145,6 +145,87 @@ function init() {
       )
     );
 
+    /**
+     * record the time when a user creates a node or link in a GoJS diagram
+     */
+    // Initialize an empty log array
+    var log = [];
+    var today = new Date();
+    // add an event listener for when a node is added to the diagram
+    myDiagram.addDiagramListener("PartCreated", function(e) {
+      var node = e.subject; // the object that was added to the diagram
+      if (node instanceof go.Node) {
+        // record that a node was created by the user
+        console.log("User created a node with text: " + node.data.text);
+
+        var logData = "User created a node with text: " + node.data.text
+
+        log.push({
+          timestamp: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+          data: logData
+        });
+      }
+    });
+
+    // add event listener when user create link between node
+    myDiagram.addDiagramListener("LinkDrawn", function(e) {
+      var node = e.subject;
+      if(node instanceof go.Link) {
+        // record that a link was created by the user
+        console.log("User created a link from node: " + node.fromNode + " to node : " + node.toNode);
+
+        var logData = "User created a link from node: " + node.fromNode + " to node : " + node.toNode
+
+        log.push({
+          timestamp: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+          data: logData
+        });
+      }
+    });
+
+    myDiagram.addDiagramListener("TextEdited", function(e) {
+      var tb = e.subject;
+      if (tb !== null) {
+        var node = tb.part;
+
+        console.log("User edited the text of a from node key : " + node.key + ' with : ' + tb.text);
+
+        var logData = "User edited the text of a from node key : " + node.key + ' with : ' + tb.text
+
+        log.push({
+          timestamp: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+          data: logData
+        });
+      }
+    });
+
+    myDiagram.addDiagramListener("SelectionDeleted", function(e) {
+      var deletedParts = e.subject; // the parts that were deleted
+      var logData = "";
+
+      deletedParts.each(function(part) {
+        if (part instanceof go.Node) {
+          console.log("User deleted a node with key: " + part.data.key);
+          // perform additional operations for node deletion
+
+          logData = "User deleted a node with key: " + part.data.key;
+          log.push({
+            timestamp: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+            data: logData
+          });
+        } else if (part instanceof go.Link) {
+          console.log("User deleted a link with key: " + part.data.key);
+          // perform additional operations for link deletion
+
+          logData = "User deleted a link with key: " + part.data.key
+          log.push({
+            timestamp: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+            data: logData
+          });
+        }
+      });
+    });
+
   /**
    * Create node or link when user input data form input field
    */
@@ -162,8 +243,12 @@ function init() {
       let newNodeData = { category : "Start", text : data}
       myDiagram.model.addNodeData(newNodeData)
 
-      // show log
-      // console.log('Clicked data: ' + data)
+      var logData = "User created super concept with text: " + data
+
+      log.push({
+        timestamp: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+        data: logData
+      });
 
       // clear input form
       inputForm_super.value = ''
@@ -182,41 +267,16 @@ function init() {
         let newNodeData = { text : conceptData};
         myDiagram.model.addNodeData(newNodeData)
 
+        var logData = "User created a node with text: " + conceptData
+
+        log.push({
+          timestamp: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+          data: logData
+        });
+
         // clear input form
         inputForm_concept.value = ''
       }
-  });
-
-  /**
-   * record the time when a user creates a node or link in a GoJS diagram
-   */
-  // Initialize an empty log array
-  var log = [];
-  // add an event listener for when a node is added to the diagram
-  myDiagram.addDiagramListener("PartCreated", function(e) {
-    var node = e.subject; // the object that was added to the diagram
-    if (node instanceof go.Node) {
-      // record that a node was created by the user
-      console.log("User created a node with key: " + node.key);
-    }
-  });
-
-  // add event listener when user create link between node
-  myDiagram.addDiagramListener("LinkDrawn", function(e) {
-    var node = e.subject;
-    if(node instanceof go.Link) {
-      // record that a link was created by the user
-      console.log("User created a link from node: " + node.fromNode + " to node : " + node.toNode);
-    }
-  });
-
-  myDiagram.addDiagramListener("TextEdited", function(e) {
-    var tb = e.subject;
-    if (tb !== null) {
-      var node = tb.part;
-
-      console.log("User edited the text of a from node key : " + node.key + ' with : ' + tb.text);
-    }
   });
 
   /**
@@ -232,8 +292,8 @@ function init() {
     modelData.userID = userid
     modelData.key = document.querySelector('#cmap-key').innerHTML
 
-    // show log
-    // console.log(modelData)
+    // add log to modelData
+    modelData.log = log;
 
     // check cmap model
     if(myDiagram.model.nodeDataArray.length === 0 || myDiagram.model.linkDataArray.length === 0)
@@ -253,8 +313,8 @@ function init() {
     modelData.userID = userid
     modelData.key = document.querySelector('#cmap-key').innerHTML
 
-    // show log
-    // console.log(modelData)
+    // add log to modelData
+    modelData.log = log;
 
     // check cmap model
     if(myDiagram.model.nodeDataArray.length === 0 || myDiagram.model.linkDataArray.length === 0)
@@ -419,7 +479,6 @@ function init() {
       })
       .catch(error => {
           // console.error(error)
-
           return alert('Cannot load Concept Map model, make sure URL keycode is valid')
       });
   } 
