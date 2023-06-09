@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "release": "flyctl deploy"
     },
     "devDependencies": {
         "@pdftron/pdfjs-express-viewer": "^8.7.2",
