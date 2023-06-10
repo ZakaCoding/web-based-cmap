@@ -3,6 +3,10 @@ import Datepicker from 'flowbite-datepicker/Datepicker';
 
 import 'animate.css';
 
+// bootstrap
+import '~bootstrap/dist/css/bootstrap-grid.css'; // Import only bootstrap-grid
+import '~bootstrap-icons/font/bootstrap-icons.min.css'; // Import bootstrap icons
+
 import Alpine from 'alpinejs';
 
 /**
