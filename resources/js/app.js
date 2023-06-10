@@ -3,6 +3,9 @@ import Datepicker from 'flowbite-datepicker/Datepicker';
 
 import 'animate.css';
 
+// bootstrap
+import '~bootstrap/dist/css/bootstrap-grid.css'; // Import only bootstrap-grid
+
 import Alpine from 'alpinejs';
 
 /**
