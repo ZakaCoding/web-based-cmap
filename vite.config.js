@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/js/assignment.js', // Assignment cmap
                 'resources/js/concept.js', // Load concept
                 'resources/js/pdf.js',
+                'resources/js/gojs.js',
             ],
             refresh: true,
         }),
