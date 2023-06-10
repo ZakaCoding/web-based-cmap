@@ -4,6 +4,7 @@ use App\Http\Controllers\Concept\MapPreviewController;
 use App\Http\Controllers\Concept\ProjectController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Services\DeleteConceptController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,8 +32,6 @@ Route::get(
     [DashboardController::class, 'releasePages']
 )->middleware(['auth', 'verified'])->name('dashboard.release');
 
-// Route::name('project.')->prefix('/project')->middleware(['auth', 'verified'])->group(function () {
-// });
 
 Route::get(
     '/project',
@@ -51,7 +50,18 @@ Route::get(
     [MapPreviewController::class, 'index']
 )->middleware(['auth', 'verified']);
 
+/**
+ * Services
+ * All service for CRUD Database
+ */
+Route::get(
+    '/concept-map/delete/{id}',
+    DeleteConceptController::class
+)->name('concept.delete.service');
 
+/**
+ * Auth Route
+ */
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
