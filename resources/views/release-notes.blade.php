@@ -17,7 +17,7 @@
             </div>
         </section>
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl sm:mx-0 lg:mx-auto px-4">
             {{-- mixins with bootstrap --}}
             <div class="row">
                 <div class="col-sm-12 col-lg-3 mb-4">
@@ -34,6 +34,44 @@
                 </div>
                 <div class="col-sm-12 col-lg-9 lg:px-5 sm:px-0">
                     {{-- Card --}}
+                    <div class="rounded-lg bg-white drop-shadow-md p-4 block">
+                        <div class="block">
+                            <div class="flex content-center">
+                                <a href="#" class="bg-green-100 text-green-800 text-xs mr-2 font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-blue-400 mb-2">
+                                    <i class="bi bi-wrench mr-2"></i>
+                                    MINOR v1.0.1
+                                </a>
+                                <p class="text-gray-400">May 12, 2023</p>
+                            </div>
+                            <h2 class="font-bold text-4xl mb-4">Responsive and Email Integration</h2>
+                        </div>
+                        <article class="text-xl font-normal text-gray-500">
+                            <p class="mb-2">
+                                We make some improment on UI, Now on when you access from Smartphone or tablet the UI will following your screen size. <br> Now you can use forgot password feature. System will sent you an email, if you didn't receive the email please check on Spam Folder.
+                            </p>
+                            <p class="mb-2">
+                                We also fix some minor Bug:
+                            </p>
+                            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Bugfixes</h2>
+                            <ul class="w-full space-y-1 text-gray-500 list-inside dark:text-gray-400">
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                    Table responsive on mobile screen
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                    Welcome page can use dark mode
+                                </li>
+                                {{-- <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                                    At least one special character, e.g., ! @ # ?
+                                </li> --}}
+                            </ul>
+                        </article>
+                    </div>
+
+                    <hr class="w-48 h-1 mx-auto my-4 bg-gray-200 border-0 rounded md:my-10 dark:bg-gray-700">
+
                     <div class="rounded-lg bg-white drop-shadow-md p-4 block">
                         <div class="block">
                             <div class="flex content-center">
@@ -55,7 +93,7 @@
                                 We also fix some minor Bug:
                             </p>
                             <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Bugfixes</h2>
-                            <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+                            <ul class="w-full space-y-1 text-gray-500 list-inside dark:text-gray-400">
                                 <li class="flex items-center">
                                     <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                                     Fix error when access concept map without user behavior data
@@ -88,10 +126,10 @@
                             <h2 class="font-bold text-4xl mb-4">Assasment Feature</h2>
                         </div>
                         <article class="text-xl font-normal text-gray-500">
-                            <p class="mb-2">
+                            <p class="mb-2 leading-tight">
                                 For now we stop develop Assasment feature because our focus is how to make reverse map on concept data, and user or teacher can tracking concept map.
                             </p>
-                            <p class="mb-2">
+                            <p class="mb-2 leading-tight">
                                 You still can access or make assasment. But, that feature still not working well. You can't take scorring for now. we still research algorithm for that feature. if you have any suggestions please let me now or you can assign that feature, check our github and make new issues with detailed.
                             </p>
                             <a href="https://github.com/ZakaCoding/web-based-cmap/issues" class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2">
