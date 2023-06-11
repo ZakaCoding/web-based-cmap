@@ -19,6 +19,14 @@ processes = []
   APP_URL = "https://open-cmap.fly.dev/"
   APP_NAME = "Open-CMAP"
   DB_CONNECTION = "pgsql"
+  MAIL_DRIVER=smtp
+  MAIL_HOST="smtp.gmail.com"
+  MAIL_PORT="465"
+  MAIL_USERNAME="zakacoding@gmail.com"
+  MAIL_PASSWORD="qxtgdvljkzkhyoqh"
+  MAIL_ENCRYPTION="ssl"
+  MAIL_FROM_ADDRESS="open-cmap-noreply@opencmap.io"
+  MAIL_FROM_NAME="${APP_NAME}"
 
 [experimental]
   auto_rollback = true
