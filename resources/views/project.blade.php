@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex place-items-center justify-between relative">
-            <div class="block">
+        <div class="row relative">
+            <div class="col-sm-12 col-lg-6 block">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Map Board') }}
                 </h2>
@@ -11,22 +11,24 @@
                 </div>
             </div>
 
-            <div class="flex content-end">
-                <button id="save" class="rounded-lg mr-4 p-2 px-4 text-center bg-purple-100 hover:bg-purple-200 hover:text-purple-800 text-purple-700 font-bold">Save</button>
-                <button id="update" class="rounded-lg mr-4 p-2 px-4 text-center bg-green-200 hover:bg-green-400 hover:text-green-800 text-green-700 font-bold hidden">Update</button>
-                <button class="rounded-lg mr-4 p-2 px-4 text-center bg-white border-2 border-slate-400 text-slate-600 font-bold hover:bg-slate-400 hover:text-black">Export Map</button>
-                <button id="create-assignment" class="bg-violet-600 rounded-lg mr-4 p-2 px-4 text-center flex text-white font-bold" data-modal-target="assignment-modal" data-modal-toggle="assignment-modal">
-                    <svg viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
-                        <path d="M14.6666 1L5.49998 10.1667L1.33331 6" stroke="white" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>           
-                    Create Assignment
-                </button>
-                <button id="update-assignment" class="bg-green-100 rounded-lg mr-4 p-2 px-4 text-center flex text-green-600 font-bold hidden">
-                    <svg viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
-                        <path d="M14.6666 1L5.49998 10.1667L1.33331 6" stroke="green" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>           
-                    Assignment Was Created
-                </button>
+            <div class="col-sm-12 col-lg-6">
+                <div class="flex content-center sm:justify-center lg:justify-end">
+                    <button id="save" class="rounded-lg mr-2 lg:mr-4 p-2 px-4 text-center bg-purple-100 hover:bg-purple-200 hover:text-purple-800 text-purple-700 font-bold">Save</button>
+                    <button id="update" class="rounded-lg mr-2 lg:mr-4 p-2 px-4 text-center bg-green-200 hover:bg-green-400 hover:text-green-800 text-green-700 font-bold hidden">Update</button>
+                    <button class="rounded-lg mr-2 lg:mr-4 p-2 px-4 text-center bg-white border-2 border-slate-400 text-slate-600 font-bold hover:bg-slate-400 hover:text-black">Export Map</button>
+                    <button id="create-assignment" class="bg-violet-600 rounded-lg mr-2 lg:mr-4 p-2 px-4 text-center flex text-white font-bold" data-modal-target="assignment-modal" data-modal-toggle="assignment-modal">
+                        <svg viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                            <path d="M14.6666 1L5.49998 10.1667L1.33331 6" stroke="white" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>           
+                        Create Assignment
+                    </button>
+                    <button id="update-assignment" class="bg-green-100 rounded-lg mr-2 lg:mr-4 p-2 px-4 text-center flex text-green-600 font-bold hidden">
+                        <svg viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                            <path d="M14.6666 1L5.49998 10.1667L1.33331 6" stroke="green" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>           
+                        Assignment Was Created
+                    </button>
+                </div>
             </div>
         </div>
     </x-slot>
@@ -34,7 +36,7 @@
 
     <div class="wrapper relative"> 
         {{-- controller nav --}}
-        <div class="controller absolute w-2/5 h-full bg-white px-20 py-10 top-0 show z-10" id="sidenav">
+        <div class="controller absolute w-11/12 lg:w-2/5 h-full bg-white px-4 lg:px-20 py-10 top-0 show z-10" id="sidenav">
     
             {{-- Button sidebar --}}
             <button id="btn-sidenav" class="bg-violet-600 rounded-lg absolute top-10 -right-5 w-10 h-10 flex justify-center items-center">
@@ -61,14 +63,14 @@
                         {{-- <h5 class="font-bold text-left mb-5 leading-tight text-lg">Build From</h5> --}}
                         <form action="#">
                             <div class="mb-3">
-                                <label for="super_concept" class="block mb-2 font-bold text-left mb-5 leading-tight text-lg text-gray-900 dark:text-white">
+                                <label for="super_concept" class="block mb-2 font-bold text-left lg:mb-5 leading-tight text-lg text-gray-900 dark:text-white">
                                     Super Concept
                                 </label>
                                 <input type="text" id="super_concept" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Super concept (optional)" required>
                                 <small class="text-gray-400 leading-6">The super concept is the most important concept in the map. There can only be one super concept per map. This is so your map content can focus on a single idea.</small>
                             </div>
 
-                            <h5 class="font-bold text-left mb-5 leading-tight text-lg">Concept</h5>
+                            <h5 class="font-bold text-left mb-2 leading-tight text-lg">Concept</h5>
                             <div class="mb-2">
                                 <input type="text" id="concept" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Concept" required>
                             </div>

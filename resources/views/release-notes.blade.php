@@ -41,13 +41,13 @@
                                     <i class="bi bi-wrench mr-2"></i>
                                     MINOR v1.0.1
                                 </a>
-                                <p class="text-gray-400">May 12, 2023</p>
+                                <p class="text-gray-400">June 13, 2023</p>
                             </div>
                             <h2 class="font-bold text-4xl mb-4">Responsive and Email Integration</h2>
                         </div>
                         <article class="text-xl font-normal text-gray-500">
                             <p class="mb-2">
-                                We make some improment on UI, Now on when you access from Smartphone or tablet the UI will following your screen size. <br> Now you can use forgot password feature. System will sent you an email, if you didn't receive the email please check on Spam Folder.
+                                We make some improvements on UI, Now on when you access from Smartphone or tablet the UI will following your screen size. <br> Now you can use forgot password feature. System will sent you an email, if you didn't receive the email please check on Spam Folder.
                             </p>
                             <p class="mb-2">
                                 We also fix some minor Bug:
