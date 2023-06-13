@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex place-items-center justify-between relative">
-            <div class="block">
+        <div class="row place-items-center relative">
+            <div class="col-sm-12 col-lg-6  mb-4 block">
                 @php
                     //  show only super concept from model data
                     $nodeData = json_decode($concept->model)->nodeDataArray;
@@ -42,7 +42,7 @@
                 </h2>
             </div>
 
-            <div class="flex items-center content-end">
+            <div class="col-sm-12 col-lg-6  mb-4 flex items-center content-center justify-end">
                 <button id="reverse-btn" class="bg-violet-600 rounded-lg mr-3 p-2 px-4 text-center flex items-center text-white font-bold focus:outline-none focus:ring focus:ring-violet-300">
                     <svg id="play-icon" class="w-6 h-6 stroke-2 mr-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
@@ -69,7 +69,7 @@
 
     <div class="wrapper relative"> 
         {{-- controller nav --}}
-        <div class="controller absolute w-2/5 h-full bg-white px-20 py-10 top-0 hide z-10" id="sidenav-concept">
+        <div class="controller absolute w-11/12 lg:w-2/5 h-full bg-white px-4 lg:px-20 py-10 top-0 hide z-10" id="sidenav-concept">
     
             {{-- Button sidebar --}}
             <button id="btn-sidenav" class="bg-violet-600 rounded-lg absolute top-10 -right-5 w-10 h-10 flex justify-center items-center">
