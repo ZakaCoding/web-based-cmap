@@ -15,10 +15,10 @@
                         } 
                     }
                 @endphp
-                <nav class="flex mb-2" aria-label="Breadcrumb">
+                <nav class="flex mb-3" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center">
                         <li class="inline-flex items-center">
-                            <a href="#" class="inline-flex items-center text-sm font-bold text-violet-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                            <a href="{{ route('dashboard') }}" class="inline-flex items-center text-sm font-bold text-violet-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                                 Dashboard
                             </a>
                         </li>
@@ -42,7 +42,7 @@
                 </h2>
             </div>
 
-            <div class="col-sm-12 col-lg-6  mb-4 flex items-center content-center justify-end">
+            <div class="col-sm-12 col-lg-6  mb-4 flex items-center content-center lg:justify-end sm:justify-left">
                 <button id="reverse-btn" class="bg-violet-600 rounded-lg mr-3 p-2 px-4 text-center flex items-center text-white font-bold focus:outline-none focus:ring focus:ring-violet-300">
                     <svg id="play-icon" class="w-6 h-6 stroke-2 mr-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
