@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="mt-16">
-                    <video class="mx-auto lg:rounded-3xl border-0 drop-shadow-lg sm:rounded-none md:rounded-2xl" src="{{ asset('assets/video/concept.mp4') }}" autoplay="autoplay" loop="true"></video>
+                    <video id="video" class="mx-auto lg:rounded-3xl border-0 drop-shadow-lg sm:rounded-none md:rounded-2xl" src="{{ asset('assets/video/concept.mp4') }}" autoplay loop muted></video>
                 </div>
 
                 <div class="mt-16">
@@ -246,6 +246,10 @@
                         behavior: 'smooth'
                     })
                 }
+            });
+
+            document.querySelector('#video').addEventListener('mouseenter', function() {
+                document.querySelector('#video').play();
             });
         </script>
     </body>
