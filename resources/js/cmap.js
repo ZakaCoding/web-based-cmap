@@ -401,6 +401,42 @@ function init() {
     }
   });
 
+  /**
+   * Export Concept Mapping to Image
+   */
+  let exportBtn = document.querySelector('#export');
+
+  exportBtn.addEventListener('click', makeBlob);
+
+  // When the blob is complete, make an anchor tag for it and use the tag to initiate a download
+  // Works in Chrome, Firefox, Safari, Edge, IE11
+  function myCallback(blob) {
+    var url = window.URL.createObjectURL(blob);
+    var filename = "open-cmap.png";
+
+    var a = document.createElement("a");
+    a.style = "display: none";
+    a.href = url;
+    a.download = filename;
+
+    // IE 11
+    if (window.navigator.msSaveBlob !== undefined) {
+      window.navigator.msSaveBlob(blob, filename);
+      return;
+    }
+
+    document.body.appendChild(a);
+    requestAnimationFrame(() => {
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    });
+  }
+
+  function makeBlob() {
+    var blob = myDiagram.makeImageData({ background: "white", returnType: "blob", callback: myCallback });
+  }
+
 
   /**
    * Load Model and view from project
@@ -467,26 +503,11 @@ function init() {
 
           let nodeData = model.nodeDataArray
           let linkData = model.linkDataArray
-
-          // show log
-          console.log(nodeData.length)
-          console.log(linkData.length)
-
-          // Load node one by one
-          // replayLog(model)
-          console.log(model)
-  
       })
       .catch(error => {
           // console.error(error)
           return alert('Cannot load Concept Map model, make sure URL keycode is valid')
       });
-  } 
-
-  // Add a listener for the ModelChanged event
-  // Function to replay the log
-  function replayLog(log) {
-    
   }
 
   /**
