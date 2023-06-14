@@ -37,6 +37,38 @@
                     <div class="rounded-lg bg-white drop-shadow-md p-4 block">
                         <div class="block">
                             <div class="flex content-center">
+                                <a href="#" class="bg-blue-100 text-blue-800 text-xs mr-2 font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-blue-400 mb-2">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
+                                    </svg>
+                                    FEATURE v1.2.2
+                                </a>
+                                <p class="text-gray-400">June 14, 2023</p>
+                            </div>
+                            <h2 class="font-bold text-4xl mb-4">Export Concept Map into Image</h2>
+                        </div>
+                        <article class="text-xl font-normal text-gray-500">
+                            <p class="mb-2">
+                                Now you can export your map into Image file, and download it as image. we also make some improvements on UI on mobile screen and add illustration video on welcome page
+                            </p>
+                            <p class="mb-2">
+                                We also fix some minor Bug:
+                            </p>
+                            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Bugfixes</h2>
+                            <ul class="w-full space-y-1 text-gray-500 list-inside dark:text-gray-400">
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                    Responsive button when you make concept map on mobile device
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
+
+                    <hr class="w-48 h-1 mx-auto my-4 bg-gray-200 border-0 rounded md:my-10 dark:bg-gray-700">
+
+                    <div class="rounded-lg bg-white drop-shadow-md p-4 block">
+                        <div class="block">
+                            <div class="flex content-center">
                                 <a href="#" class="bg-green-100 text-green-800 text-xs mr-2 font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-blue-400 mb-2">
                                     <i class="bi bi-wrench mr-2"></i>
                                     MINOR v1.0.1
